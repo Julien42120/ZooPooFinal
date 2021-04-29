@@ -8,18 +8,48 @@ abstract class Animal {
     protected int $weight;
     protected int $size;
     protected bool $sleep = false;
-    protected bool $hangry = false;
+    protected bool $hungry = false;
     protected bool $sick = false;
+    protected int $gestation = 0;
+    protected $id;
+    protected $idEnclos;
+
 
 
     /* CONSTRUCT */
 
-    public function __construct($nameSpecies, $sex, $age, $weight, $size){
-        $this->nameSpecies = $nameSpecies;
-        $this->sex = $sex;
-        $this->age = $age;
-        $this->weight = $weight;
-        $this->size = $size;
+    public function __construct(array $donnees){
+        $this->hydrate($donnees);
+    }
+
+    /* HYDRATE */
+
+    public function hydrate($donnees){
+        foreach ($donnees as $key =>$value) {
+        
+            $method = 'set'.ucfirst($key);
+        
+        if (method_exists($this, $method))
+        {
+          $this->$method($value);
+        }
+        }
+    }
+
+    public function getId (){
+        return $this->id;
+    }
+
+    public function setId ($id){
+        $this->id = $id;
+    }
+
+    public function getIdEnclos (){
+        return $this->idEnclos;
+    }
+
+    public function setIdEnclos ($idEnclos){
+        $this->idEnclos = $idEnclos;
     }
 
     /* GETTERS & SETTERS */
@@ -68,6 +98,14 @@ abstract class Animal {
         $this->size = $size;
     }
 
+    public function getGestation (){
+        return $this->gestation;
+    }
+
+    public function setGestation ($gestation){
+        $this->gestation = $gestation;
+    }
+
     /* RETURN BOOL */
 
     public function isSleep (){
@@ -78,12 +116,12 @@ abstract class Animal {
         $this->sleep = $sleep;
     }
 
-    public function isHangry (){
-        return $this->hangry;
+    public function isHungry (){
+        return $this->hungry;
     }
 
-    public function setHangry ($hangry){
-        $this->hangry = $hangry;
+    public function setHungry ($hungry){
+        $this->hungry = $hungry;
     }
 
     public function isSick (){
@@ -97,8 +135,8 @@ abstract class Animal {
     /* METHODES */
 
     public function eat() {
-        if ($this->isHangry()){
-            $this->setHangry(false);
+        if ($this->isHungry()){
+            $this->setHungry(false);
         }
     }
 
@@ -134,7 +172,7 @@ abstract class Animal {
         echo 'Size: '.$this->getSize().'<br>';
         // echo $this->isSleep().'<br>';
         // echo $this->isSick().'<br>';
-        // echo $this->isHangry().'<br>';
+        // echo $this->ishungry().'<br>';
     }
 
 }

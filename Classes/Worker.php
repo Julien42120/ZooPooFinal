@@ -53,19 +53,28 @@ class Worker {
         $enclosure->features();
     }
 
-    // public function feed() {
-    //     if ($this->isSleep(false) {
-    //        $this->isHangry(true);
-    //        echo $this->name.' fed the animal !';
-    //     }
-    // }
+    public function cleanEnclos(Enclosure $enclosure){
+        $enclosure->clean();
+    }
 
-    public function clean(){
-        if ($this->isEmpty() && $this->getClean() == 'dirty') {
-            $this->setEmpty(false);
-            $this->setClean('clean');
-           echo $this->name.' cleanned the enclosure !';
-        }
+    public function feed(Animal $animal) {
+        $animal->eat();
+    }
+
+    public function addAnimalEnclos(Enclosure $enclos, Animal $animal){
+        $enclos->addAnimal($animal);
+    }
+
+    public function wakeUpAnimal(Animal $animal){
+        $animal->wakeUp();
+    }
+
+    public function removeAnimalEnclos(Enclosure $enclos){
+        $enclos->removeAnimal();
+    }
+
+    public function moveAnimalEnclos(Animal $animal, Enclosure $enclosDelete, Enclosure $enclos){
+        $enclosDelete->moveAnimal($animal, $enclos);
     }
 
 }

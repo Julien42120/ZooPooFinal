@@ -7,7 +7,12 @@ abstract class Enclosure {
     protected int $surface;
     protected int $max;
     protected bool $empty = true;
-    protected array $animalsEnclos = [];
+    // protected array $animalsEnclos = [];
+    protected $id;
+    protected int $height;
+    protected bool $summit = false;
+    protected int $deep;
+    protected int $salinity;
 
     /* CONSTRUCT */
 
@@ -17,6 +22,23 @@ abstract class Enclosure {
         $this->max = $max;
     }
 
+    public function getId() {
+        return $this->id;
+    }
+
+    /* HYDRATE */
+
+    public function hydrate($donnees){
+        foreach ($donnees as $key =>$value) {
+        
+            $method = 'set'.ucfirst($key);
+        
+        if (method_exists($this, $method))
+        {
+          $this->$method($value);
+        }
+        }
+    }
 
     /* GETTERS & SETTERS */
 
@@ -58,14 +80,14 @@ abstract class Enclosure {
     }
 
 
-    public function getAnimalsEnclos() :array {
-        return $this->animalsEnclos;
-    }
+    // public function getAnimalsEnclos() :array {
+    //     return $this->animalsEnclos;
+    // }
 
-    public function setAnimalsEnclos(array $animalsEnclos) :void {
+    // public function setAnimalsEnclos(array $animalsEnclos) :void {
 
-        $this->animalsEnclos = $animalsEnclos;
-    }
+    //     $this->animalsEnclos = $animalsEnclos;
+    // }
 
     /* RETURN BOOL */
 
@@ -91,29 +113,29 @@ abstract class Enclosure {
     /* CARACTERISTIQUES DE L'ANIMAL DANS L'ENCLOS */
 
 
-    public function nbAnimalsInside() :int {
-        return count($this->animalsEnclos);
-    }
+    // public function nbAnimalsInside() :int {
+    //     return count($this->animalsEnclos);
+    // }
 
-    public function addAnimal(Animal $animal){
-        array_push($this->animalsEnclos, $animal);
-    }
+    // public function addAnimal(Animal $animal){
+    //     array_push($this->animalsEnclos, $animal);
+    // }
     
-    public function removeAnimal(){
-        array_pop($this->animalsEnclos);
-    }
+    // public function removeAnimal(){
+    //     array_pop($this->animalsEnclos);
+    // }
 
-    public function moveAnimal(Animal $animal, Enclosure $enclosure){
-        $this->removeAnimal();
-        $enclosure->addAnimal($animal);
-    }
+    // public function moveAnimal(Animal $animal, Enclosure $enclosure){
+    //     $this->removeAnimal();
+    //     $enclosure->addAnimal($animal);
+    // }
 
-    public function animalsFeatures(){
-        foreach ($this->animalsEnclos as $animals) {
-            echo $animals->features().'<br>';
+    // public function animalsFeatures(){
+    //     foreach ($this->animalsEnclos as $animals) {
+    //         echo $animals->features().'<br>';
 
-        }
-    }
+    //     }
+    // }
 
     public function clean(){
         if ($this->isEmpty() && $this->getClean() == 'dirty') {
@@ -122,4 +144,43 @@ abstract class Enclosure {
         }
     }
 
+
+
+    // Aqua class 
+    public function getDeep () :int {
+        return $this->deep;
+    }
+
+    public function setDeep ($deep) {
+        $this->deep = $deep;
+    }
+
+    public function getSalinity () :int {
+        return $this->salinity;
+    }
+
+    public function setSalinity ($salinity) {
+        $this->salinity = $salinity;
+    }
+
+    // BirdCage class 
+    /* RETURN INT */
+
+    public function getHeight () :int {
+        return $this->height;
+    }
+
+    public function setHeight ($height) :void {
+        $this->height = $height;
+    }
+
+    /* RETURN BOOL */
+
+    public function isSummit () :int {
+        return $this->summit;
+    }
+
+    public function setsummit ($summit) {
+        $this->summit = $summit;
+    }
 }
