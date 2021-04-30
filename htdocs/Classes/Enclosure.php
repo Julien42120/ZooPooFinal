@@ -7,23 +7,43 @@ abstract class Enclosure {
     protected int $surface;
     protected int $max;
     protected bool $empty = true;
-    // protected array $animalsEnclos = [];
     protected $id;
-    protected int $height;
-    protected bool $summit = false;
-    protected int $deep;
-    protected int $salinity;
+    protected $height= null;
+    protected $summit = null;
+    protected $deep = null;
+    protected $salinity = null;
+    protected int $idZoo;
+    protected  $animalEnclos;
+    protected int $NbrAnimal = 0;
 
     /* CONSTRUCT */
 
-    public function __construct($type, $surface, $max) {
-        $this->type = $type;
-        $this->surface = $surface;
-        $this->max = $max;
+    public function __construct(array $donnees){
+        $this->hydrate($donnees);
     }
 
     public function getId() {
         return $this->id;
+    }
+
+    public function setId ($id){
+        $this->id = $id;
+    }
+
+    public function getIdZoo (){
+        return $this->idZoo;
+    }
+
+    public function setIdZoo ($idZoo){
+        $this->idZoo = $idZoo;
+    }
+
+    public function getAnimalEnclos (){
+        return $this->animalEnclos;
+    }
+
+    public function setAnimalEnclos ($animalEnclos){
+        $this->animalEnclos = $animalEnclos;
     }
 
     /* HYDRATE */
@@ -39,6 +59,7 @@ abstract class Enclosure {
         }
         }
     }
+
 
     /* GETTERS & SETTERS */
 
@@ -79,16 +100,6 @@ abstract class Enclosure {
         $this->max = $max;
     }
 
-
-    // public function getAnimalsEnclos() :array {
-    //     return $this->animalsEnclos;
-    // }
-
-    // public function setAnimalsEnclos(array $animalsEnclos) :void {
-
-    //     $this->animalsEnclos = $animalsEnclos;
-    // }
-
     /* RETURN BOOL */
 
     public function isEmpty(){
@@ -110,32 +121,6 @@ abstract class Enclosure {
         echo '<b>Number max of animals :</b>'.$this->getMax().'<br>';
     }
 
-    /* CARACTERISTIQUES DE L'ANIMAL DANS L'ENCLOS */
-
-
-    // public function nbAnimalsInside() :int {
-    //     return count($this->animalsEnclos);
-    // }
-
-    // public function addAnimal(Animal $animal){
-    //     array_push($this->animalsEnclos, $animal);
-    // }
-    
-    // public function removeAnimal(){
-    //     array_pop($this->animalsEnclos);
-    // }
-
-    // public function moveAnimal(Animal $animal, Enclosure $enclosure){
-    //     $this->removeAnimal();
-    //     $enclosure->addAnimal($animal);
-    // }
-
-    // public function animalsFeatures(){
-    //     foreach ($this->animalsEnclos as $animals) {
-    //         echo $animals->features().'<br>';
-
-    //     }
-    // }
 
     public function clean(){
         if ($this->isEmpty() && $this->getClean() == 'dirty') {
@@ -147,16 +132,25 @@ abstract class Enclosure {
 
 
     // Aqua class 
-    public function getDeep () :int {
-        return $this->deep;
+    public function getDeep (){
+        if($this->deep){
+            return $this->salinity;
+        } else {
+            return null;
+        }
     }
 
     public function setDeep ($deep) {
         $this->deep = $deep;
     }
 
-    public function getSalinity () :int {
-        return $this->salinity;
+    public function getSalinity (){
+        if ($this->salinity){
+            return $this->salinity;
+            }   
+            else {
+                return null;
+            }
     }
 
     public function setSalinity ($salinity) {
@@ -166,7 +160,7 @@ abstract class Enclosure {
     // BirdCage class 
     /* RETURN INT */
 
-    public function getHeight () :int {
+    public function getHeight () {
         return $this->height;
     }
 
@@ -176,7 +170,7 @@ abstract class Enclosure {
 
     /* RETURN BOOL */
 
-    public function isSummit () :int {
+    public function isSummit () {
         return $this->summit;
     }
 

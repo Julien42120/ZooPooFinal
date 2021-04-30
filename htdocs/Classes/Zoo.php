@@ -2,18 +2,18 @@
 
 class Zoo {
 
+    protected $id;
     protected string $name;
     protected object $worker;
     protected int $nbMaxEnclos = 25;
     protected array $allEnclos = [];
 
-    function __construct($name, $worker, $nbMaxEnclos = 25){
-        $this->name = $name;
-        $this->worker = $worker;
-        $this->nbMaxEnclos = $nbMaxEnclos;
-    }
-
     /* HYDRATE */
+
+    public function __construct(array $donnees){
+        $this->hydrate($donnees);
+    }
+    
 
     public function hydrate($donnees){
         foreach ($donnees as $key =>$value) {
@@ -26,6 +26,15 @@ class Zoo {
         }
         }
     }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function setId($id){
+        $this->id = $id;
+    }
+
 
     public function getName(){
         return $this->name;
